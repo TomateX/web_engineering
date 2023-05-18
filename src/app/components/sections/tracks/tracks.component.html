@@ -1,1 +1,11 @@
-<p>tracks works!</p>
+<div class="row">
+  <app-track-card
+    class="col-xl-2 col-md-3 col-sm-4 col-6 my-3"
+    *ngFor="let track of tracks"
+    [name]="track.name"
+    [img]="track.img"
+    [artists]="track.artists[0]"
+  ></app-track-card>
+</div>
+
+

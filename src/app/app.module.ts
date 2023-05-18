@@ -8,6 +8,8 @@ import { SearchComponent } from './components/sections/search/search.component';
 import { TracksComponent } from './components/sections/tracks/tracks.component';
 import { SectionsComponent } from './components/sections/sections.component';
 import { FormsModule } from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
+import { TrackCardComponent } from './components/sections/tracks/track-card/track-card.component';
 
 @NgModule({
   declarations: [
@@ -15,12 +17,14 @@ import { FormsModule } from "@angular/forms";
     NavbarComponent,
     SearchComponent,
     TracksComponent,
-    SectionsComponent
+    SectionsComponent,
+    TrackCardComponent
   ],
     imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule
+      BrowserModule,
+      AppRoutingModule,
+      FormsModule,
+      HttpClientModule
     ],
   providers: [],
   bootstrap: [AppComponent]
