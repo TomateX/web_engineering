@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {HttpClient} from "@angular/common/http";
+import {SearchService} from "../../../services/search.service";
 
 @Component({
   selector: 'app-search',
@@ -9,13 +9,13 @@ import {HttpClient} from "@angular/common/http";
 })
 export class SearchComponent {
 
-  constructor(http: HttpClient){
-
+  constructor(private searchService: SearchService) {
   }
 
   onSubmit(searchForm: NgForm){
     if(searchForm.invalid){
       return;
     }
+    this.searchService.search(searchForm.value.request);
   }
 }

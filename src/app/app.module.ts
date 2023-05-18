@@ -8,6 +8,7 @@ import { SearchComponent } from './components/sections/search/search.component';
 import { TracksComponent } from './components/sections/tracks/tracks.component';
 import { SectionsComponent } from './components/sections/sections.component';
 import { FormsModule } from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -18,9 +19,10 @@ import { FormsModule } from "@angular/forms";
     SectionsComponent
   ],
     imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule
+      BrowserModule,
+      AppRoutingModule,
+      FormsModule,
+      HttpClientModule
     ],
   providers: [],
   bootstrap: [AppComponent]

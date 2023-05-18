@@ -1,8 +1,12 @@
 <nav class="navbar navbar-dark shadow border-bottom border-black rounded-4" style="background-color: rgb(29, 33, 37)">
   <div class="container-fluid ms-3">
-    <a class="navbar-brand fs-2" href="#">
-      <img src="assets/image/Spotify_logo_without_text.svg.png" alt="Spotify Logo" width="auto" height="40" class="d-inline-block align-text-top">
-      Totify
+    <a class="navbar-brand d-flex" href="#">
+      <img src="assets/image/Spotify_logo_without_text.svg.png" alt="Spotify Logo" width="auto" height="45" class="d-inline-block">
+      <p class="my-auto ms-2 fs-1">Totify</p>
     </a>
+    <div class="me-4">
+      <button (click)="getToken()" class="btn btn-success btn-sm" type="button">Get Token</button>
+      <p class="text-center text-danger m-0">{{tokenMinute | number:'2.0-0'}}:{{tokenSecond | number:'2.0-0'}}</p>
+    </div>
   </div>
 </nav>
