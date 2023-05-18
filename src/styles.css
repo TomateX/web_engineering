@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+  font-family: Gotham;
+  cursor: url("assets/cursor/cursor-24.png"), auto;
+}
+
+body{
+  background-color: rgb(33, 37, 41);
+  caret-color: rgb(29, 185, 84);
+
+}
