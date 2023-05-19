@@ -16,6 +16,7 @@ export class SearchComponent {
     if(searchForm.invalid){
       return;
     }
-    this.searchService.search(searchForm.value.request);
+    console.log(searchForm.value.searchType);
+    this.searchService.search(searchForm.value.request, searchForm.value.searchType);
   }
 }

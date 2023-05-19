@@ -12,8 +12,8 @@ export class SearchService {
   items: any;
   newItems = new Subject<any>();
 
-  search(request: string) {
-    const url = `https://api.spotify.com/v1/search?q=${encodeURIComponent(request)}&type=track&limit=50`;
+  search(request: string, type: string) {
+    const url = `https://api.spotify.com/v1/search?q=${encodeURIComponent(request)}&type=${type}&limit=50`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 

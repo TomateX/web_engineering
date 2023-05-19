@@ -10,7 +10,6 @@ export class TracksService implements OnDestroy{
 
   tracks: Track[] = [];
   newTracks = new Subject<Track[]>()
-
   subscription!: Subscription;
 
   constructor(private searchService: SearchService) {
@@ -20,11 +19,12 @@ export class TracksService implements OnDestroy{
         let id: string = tracks[i].id;
         let name: string = tracks[i].name;
         let img: string = tracks[i].album.images[0].url;
+        let uri: string = tracks[i].uri;
         let artists: string[] = [];
         for(let z = 0; z < tracks[i].artists.length; z++){
           artists.push(tracks[i].artists[z].name);
         }
-        this.tracks.push({id, name, img, artists});
+        this.tracks.push({id, name, img, uri, artists});
       }
       this.newTracks.next(this.tracks);
     })

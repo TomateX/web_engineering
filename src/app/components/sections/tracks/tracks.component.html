@@ -1,10 +1,10 @@
-<div class="row">
+<div>
   <app-track-card
-    class="col-xl-2 col-md-3 col-sm-4 col-6 my-3"
     *ngFor="let track of tracks"
     [name]="track.name"
     [img]="track.img"
-    [artists]="track.artists[0]"
+    [uri]="track.uri"
+    [artists]="track.artists"
   ></app-track-card>
 </div>
 
