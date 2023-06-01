@@ -1,5 +1,8 @@
 <div class="container">
   <p class="text-light mt-3">Hole zuerst einen Token bevor du startest.</p>
-  <app-search></app-search>
-  <app-tracks></app-tracks>
+  <app-search (typeEvent)="setType($event)"></app-search>
+  <app-albums *ngIf="type == 'album'"></app-albums>
+  <app-artists *ngIf="type == 'artist'"></app-artists>
+  <app-playlists *ngIf="type == 'playlist'"></app-playlists>
+  <app-tracks *ngIf="type == 'track'"></app-tracks>
 </div>

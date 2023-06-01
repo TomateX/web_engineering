@@ -13,7 +13,7 @@ export class TracksService implements OnDestroy{
   subscription!: Subscription;
 
   constructor(private searchService: SearchService) {
-    this.subscription = this.searchService.newItems.subscribe((tracks:any) => {
+    this.subscription = this.searchService.tracks.subscribe((tracks:any) => {
       this.tracks = [];
       for(let i = 0; i < tracks.length; i++){
         let id: string = tracks[i].id;

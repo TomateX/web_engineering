@@ -1,0 +1,10 @@
+<div>
+  <app-playlist-card
+    *ngFor="let playlist of playlists"
+    [name]="playlist.name"
+    [img]="playlist.img"
+    [uri]="playlist.uri"
+    [owner]="playlist.owner"
+  ></app-playlist-card>
+</div>
+

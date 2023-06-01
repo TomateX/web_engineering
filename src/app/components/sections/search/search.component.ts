@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {SearchService} from "../../../services/search.service";
 
@@ -8,6 +8,7 @@ import {SearchService} from "../../../services/search.service";
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent {
+  @Output() typeEvent = new EventEmitter<string>();
 
   constructor(private searchService: SearchService) {
   }
@@ -16,7 +17,7 @@ export class SearchComponent {
     if(searchForm.invalid){
       return;
     }
-    console.log(searchForm.value.searchType);
+    this.typeEvent.emit(searchForm.value.searchType);
     this.searchService.search(searchForm.value.request, searchForm.value.searchType);
   }
 }

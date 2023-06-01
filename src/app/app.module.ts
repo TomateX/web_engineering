@@ -10,6 +10,12 @@ import { SectionsComponent } from './components/sections/sections.component';
 import { FormsModule } from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { TrackCardComponent } from './components/sections/tracks/track-card/track-card.component';
+import { AlbumsComponent } from './components/sections/albums/albums.component';
+import { AlbumCardComponent } from './components/sections/albums/album-card/album-card.component';
+import { ArtistsComponent } from './components/sections/artists/artists.component';
+import { ArtistCardComponent } from './components/sections/artists/artist-card/artist-card.component';
+import { PlaylistsComponent } from './components/sections/playlists/playlists.component';
+import { PlaylistCardComponent } from './components/sections/playlists/playlist-card/playlist-card.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +24,13 @@ import { TrackCardComponent } from './components/sections/tracks/track-card/trac
     SearchComponent,
     TracksComponent,
     SectionsComponent,
-    TrackCardComponent
+    TrackCardComponent,
+    AlbumsComponent,
+    AlbumCardComponent,
+    ArtistsComponent,
+    ArtistCardComponent,
+    PlaylistsComponent,
+    PlaylistCardComponent
   ],
     imports: [
       BrowserModule,

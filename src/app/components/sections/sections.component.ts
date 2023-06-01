@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class SectionsComponent {
 
+  type: string = '';
+
+  setType(newType: string){
+    this.type = newType;
+  }
+
 }

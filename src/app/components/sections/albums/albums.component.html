@@ -1,0 +1,9 @@
+<div>
+  <app-album-card
+    *ngFor="let album of albums"
+    [name]="album.name"
+    [img]="album.img"
+    [uri]="album.uri"
+    [artists]="album.artists"
+  ></app-album-card>
+</div>
