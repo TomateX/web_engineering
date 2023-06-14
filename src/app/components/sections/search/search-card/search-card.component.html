@@ -1,0 +1,13 @@
+<div *ngFor="let item of items">
+  <div class="d-flex my-2" style="height: 5rem">
+    <a href="{{item.uri}}" class="h-100 w-auto">
+      <img src="{{item.img}}" alt="cover" class="h-100 overflow-hidden" style="width: 5rem">
+    </a>
+    <div class="my-auto ms-2">
+      <h5 class="text-light h-50 text-nowrap overflow-auto">{{item.name}}</h5>
+      <p class="text-light text-nowrap overflow-auto">{{item.creator}}</p>
+    </div>
+  </div>
+  <hr class="border-white">
+</div>
+
