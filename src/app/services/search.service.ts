@@ -14,9 +14,6 @@ export class SearchService {
   playlists = new Subject<any>();
   tracks = new Subject<any>();
 
-  items = new Subject<any>();
-
-
   search(request: string, type: string) {
     const url = `https://api.spotify.com/v1/search?q=${encodeURIComponent(request)}&type=${type}&limit=50`;
     const token = localStorage.getItem('token');
