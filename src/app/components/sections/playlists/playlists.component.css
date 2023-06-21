@@ -1,0 +1,10 @@
+.img-playlist{
+  max-width: 15rem;
+  height: auto;
+  border-radius: 10px;
+}
+
+.text-playlist{
+  color: white;
+  word-wrap: break-word;
+}

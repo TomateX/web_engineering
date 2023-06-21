@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Subject} from "rxjs";
+import {catchError, Subject, throwError} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +14,22 @@ export class SearchService {
   playlists = new Subject<any>();
   tracks = new Subject<any>();
 
+  error = new Subject<boolean>()
+
+  lastSearchType: string = '';
+
   search(request: string, type: string) {
+    this.lastSearchType = type;
     const url = `https://api.spotify.com/v1/search?q=${encodeURIComponent(request)}&type=${type}&limit=50`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    this.http.get(url, { headers }).subscribe((res: any) => {
+    this.http.get(url, { headers }).pipe(
+      catchError((error: any) => {
+        console.log("Ein Fehler ist aufgetreten: " + error);
+        this.error.next(true);
+        return throwError(error);
+      })
+    ).subscribe((res: any) => {
       switch (type){
         case 'album':
           this.albums.next(res.albums.items);
@@ -32,6 +43,11 @@ export class SearchService {
         case 'track':
           this.tracks.next(res.tracks.items);
           break;
+      }
+      if (res.error) {
+        this.error.next(true);
+      } else {
+        this.error.next(false);
       }
     });
   }

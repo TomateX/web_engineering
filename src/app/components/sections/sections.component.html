@@ -1,5 +1,5 @@
 <div class="container">
-  <p class="text-light mt-3">Hole zuerst einen Token bevor du startest.</p>
-  <app-search (typeEvent)="setType($event)"></app-search>
-  <app-search-card></app-search-card>
+  <p *ngIf="errorstatus" class="text-light mt-3">Hole zuerst einen Token bevor du startest.</p>
+  <app-search></app-search>
+  <router-outlet></router-outlet>
 </div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {SearchService} from "../../services/search.service";
 
 @Component({
   selector: 'app-sections',
@@ -7,10 +8,12 @@ import { Component } from '@angular/core';
 })
 export class SectionsComponent {
 
-  type: string = '';
+  errorstatus: boolean = false;
 
-  setType(newType: string){
-    this.type = newType;
+  constructor(private searchService: SearchService) {
+    searchService.error.subscribe((errorStatus) => {
+      this.errorstatus = errorStatus;
+    })
   }
 
 }
