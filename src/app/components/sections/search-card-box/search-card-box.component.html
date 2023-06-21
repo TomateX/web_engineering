@@ -1,0 +1,9 @@
+<app-search-card
+  *ngFor="let item of items"
+  [uri]="item.uri"
+  [name]="item.name"
+  [img]="item.img"
+  [creator]="item.creator"
+  [type]="type"
+  (playlistMode)="playlistMode = $event"
+></app-search-card>

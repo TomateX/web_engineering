@@ -1,25 +1,30 @@
 import { Component } from '@angular/core';
-import {PlaylistsService} from "../../../../services/playlists.service";
-import {AlbumsService} from "../../../../services/albums.service";
-import {ArtistsService} from "../../../../services/artists.service";
-import {TracksService} from "../../../../services/tracks.service";
+import {Router} from "@angular/router";
+import {SearchService} from "../../../services/search.service";
+import {PlaylistsService} from "../../../services/playlists.service";
+import {AlbumsService} from "../../../services/albums.service";
+import {ArtistsService} from "../../../services/artists.service";
+import {TracksService} from "../../../services/tracks.service";
 
 @Component({
-  selector: 'app-search-card',
-  templateUrl: './search-card.component.html',
-  styleUrls: ['./search-card.component.css']
+  selector: 'app-search-card-box',
+  templateUrl: './search-card-box.component.html',
+  styleUrls: ['./search-card-box.component.css']
 })
-export class SearchCardComponent {
+export class SearchCardBoxComponent {
 
   items: {uri: string, name: string, img: string, creator: string }[] = [];
+  type: string = '';
+  playlistMode: boolean = false;
 
-  constructor(private playlistsService: PlaylistsService, private albumsService: AlbumsService, private artistsService: ArtistsService, private tracksService: TracksService) {
+  constructor(private router: Router, private searchService: SearchService, private playlistsService: PlaylistsService, private albumsService: AlbumsService, private artistsService: ArtistsService, private tracksService: TracksService) {
     let uri: string = '';
     let name: string = '';
     let img: string = '';
     let creator: string = '';
 
     this.playlistsService.newPlaylists.subscribe(playlists => {
+      this.type = 'playlist';
       this.items = [];
       for (let i = 0; i < playlists.length; i++){
         uri = playlists[i].uri;
@@ -30,6 +35,7 @@ export class SearchCardComponent {
       }
     })
     this.albumsService.newAlbums.subscribe(albums => {
+      this.type = 'album';
       this.items = [];
       for (let i = 0; i < albums.length; i++){
         uri = albums[i].uri;
@@ -46,6 +52,7 @@ export class SearchCardComponent {
       }
     })
     this.artistsService.newArtists.subscribe(artists => {
+      this.type = 'artist';
       this.items = [];
       for (let i = 0; i < artists.length; i++){
         uri = artists[i].uri;
@@ -56,6 +63,7 @@ export class SearchCardComponent {
       }
     })
     this.tracksService.newTracks.subscribe(tracks => {
+      this.type = 'track';
       this.items = [];
       for (let i = 0; i < tracks.length; i++){
         uri = tracks[i].uri;
@@ -72,6 +80,4 @@ export class SearchCardComponent {
       }
     })
   }
-
-
 }

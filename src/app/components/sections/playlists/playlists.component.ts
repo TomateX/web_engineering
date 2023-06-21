@@ -11,6 +11,11 @@ export class PlaylistsComponent {
 
   playlists: Playlist[] = [];
 
+  name: string = '';
+  img: string = '';
+  creator: string= '';
+
+
   constructor(private playlistsService: PlaylistsService) {
     this.playlistsService.newPlaylists.subscribe(playlists => {
       this.playlists = playlists;

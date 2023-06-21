@@ -5,26 +5,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SearchComponent } from './components/sections/search/search.component';
-import { TracksComponent } from './components/sections/tracks/tracks.component';
 import { SectionsComponent } from './components/sections/sections.component';
 import { FormsModule } from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
-import { AlbumsComponent } from './components/sections/albums/albums.component';
-import { ArtistsComponent } from './components/sections/artists/artists.component';
 import { PlaylistsComponent } from './components/sections/playlists/playlists.component';
-import { SearchCardComponent } from './components/sections/search/search-card/search-card.component';
+import { SearchCardComponent } from './components/sections/search-card-box/search-card/search-card.component';
+import { SearchCardBoxComponent } from './components/sections/search-card-box/search-card-box.component';
+import { EmptyComponent } from './components/empty/empty.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     SearchComponent,
-    TracksComponent,
     SectionsComponent,
-    AlbumsComponent,
-    ArtistsComponent,
     PlaylistsComponent,
-    SearchCardComponent
+    SearchCardComponent,
+    SearchCardBoxComponent,
+    EmptyComponent,
   ],
     imports: [
       BrowserModule,
