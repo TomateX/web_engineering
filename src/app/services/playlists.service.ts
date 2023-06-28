@@ -60,7 +60,7 @@ export class PlaylistsService implements OnDestroy{
         let resTrack = res.tracks.items[i].track;
         let creators: string[] = [];
         for (let z = 0; z < resTrack.artists.length; z++){
-          creators.push(resTrack.artists.name);
+          creators.push(resTrack.artists[z].name);
         }
         tracks.push(new Track(resTrack.id, resTrack.name, resTrack.album.images[0].url, resTrack.uri, creators));
       }
