@@ -1,5 +1,5 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import {Subject, Subscription} from "rxjs";
+import {catchError, Subject, Subscription, throwError} from "rxjs";
 import {SearchService} from "./search.service";
 import {Playlist} from "../model/playlist.model";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
@@ -10,16 +10,22 @@ import {Track} from "../model/track.model";
 })
 export class PlaylistsService implements OnDestroy{
 
+
+  //Array mit allen Playlists die gefunden wourden sind
   playlists: Playlist[] = [];
   newPlaylists = new Subject<Playlist[]>()
+
+  //Ausgewählte Playlist
   selectedPlaylist: Playlist = new Playlist('', '', '', '', '');
   newSelectedPlaylist = new Subject<Playlist>();
-  subscription!: Subscription;
 
-  waitForRequest = new Subject<boolean>();
+  //Subscription
+  searchSubscription!: Subscription;
+  playlistSubscription!: Subscription;
 
   constructor(private searchService: SearchService, private http: HttpClient) {
-    this.subscription = this.searchService.playlists.subscribe((playlists:any) => {
+    //Subscription für die Playlist die vom searchService gefunden worden sind
+    this.searchSubscription = this.searchService.playlists.subscribe((playlists:any) => {
       this.playlists = [];
       for(let i = 0; i < playlists.length; i++){
         let id: string = playlists[i].id;
@@ -35,21 +41,18 @@ export class PlaylistsService implements OnDestroy{
     })
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-  getSelectedPlaylist(){
-    return this.selectedPlaylist;
-  }
-
+  //Methode für den HTTP Request für die Songs der ausgewählten Playlist
   getPlaylistApi(id: string){
-    this.waitForRequest.next(true);
     const url = 'https://api.spotify.com/v1/playlists/'+id;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    this.http.get(url, { headers }).subscribe((res: any) => {
+    this.playlistSubscription = this.http.get(url, { headers }).pipe(
+      catchError((error: any) => {
+        console.log("Ein fehler ist aufgetreten: " + error);
+        return throwError(error);
+      })
+    ).subscribe((res: any) => {
       this.selectedPlaylist.uri = res.uri;
       this.selectedPlaylist.id = res.id;
       this.selectedPlaylist.img = res.images[0].url;
@@ -66,7 +69,17 @@ export class PlaylistsService implements OnDestroy{
       }
       this.selectedPlaylist.tracks = tracks;
       this.newSelectedPlaylist.next(this.selectedPlaylist);
-      this.waitForRequest.next(false);
     });
+  }
+
+  //Gibt die ausgewählte Playlist zurück
+  getSelectedPlaylist(){
+    return this.selectedPlaylist;
+  }
+
+  //Manuelles unsubscribe von den Subscriptions
+  ngOnDestroy() {
+    this.searchSubscription.unsubscribe();
+    this.playlistSubscription.unsubscribe();
   }
 }

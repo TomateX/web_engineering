@@ -16,8 +16,4 @@ export class Album {
     this.artists = artists;
     this.tracks = [];
   }
-
-  setTracks(newTracks: Track[]){
-    this.tracks = newTracks;
-  }
 }

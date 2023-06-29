@@ -1,5 +1,5 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import {Subject, Subscription} from "rxjs";
+import {catchError, Subject, Subscription, throwError} from "rxjs";
 import {SearchService} from "./search.service";
 import {Album} from "../model/album.model";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
@@ -9,16 +9,23 @@ import {Track} from "../model/track.model";
   providedIn: 'root'
 })
 export class AlbumsService implements OnDestroy{
+
+  //Array mit allen Alben die gefunden worden sind
   albums: Album[] = [];
   newAlbums = new Subject<Album[]>()
+
+  //Album welches ausgewählt wurde
   selectedAlbum: Album = new Album('', '', '', '', []);
   newSelectedAlbum = new Subject<Album>();
-  subscription!: Subscription;
 
-  waitForRequest = new Subject<boolean>();
+
+  searchSubscription!: Subscription;
+  albumSubscription!: Subscription;
 
   constructor(private searchService: SearchService, private http: HttpClient) {
-    this.subscription = this.searchService.albums.subscribe((albums:any) => {
+
+    //Subscription für die Alben die vom Searchservice geliefert werden
+    this.searchSubscription = this.searchService.albums.subscribe((albums:any) => {
       this.albums = [];
       for(let i = 0; i < albums.length; i++){
         let id: string = albums[i].id;
@@ -37,17 +44,18 @@ export class AlbumsService implements OnDestroy{
     })
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
+  //HTTP Request für die Songs eines ausgewählten Albums
   getAlbumApi(id: string){
-    this.waitForRequest.next(true);
     const url = 'https://api.spotify.com/v1/albums/'+id;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    this.http.get(url, { headers }).subscribe((res: any) => {
+    this.albumSubscription = this.http.get(url, { headers }).pipe(
+      catchError((error: any) => {
+        console.log("Ein fehler ist aufgetreten: " + error);
+        return throwError(error);
+      })
+    ).subscribe((res: any) => {
       this.selectedAlbum.uri = res.uri;
       this.selectedAlbum.id = res.id;
       this.selectedAlbum.img = res.images[0].url;
@@ -67,11 +75,17 @@ export class AlbumsService implements OnDestroy{
       }
       this.selectedAlbum.tracks = tracks;
       this.newSelectedAlbum.next(this.selectedAlbum);
-      this.waitForRequest.next(false);
     });
   }
 
+  //Gibt das ausgewählte Album zurück
   getSelectedAlbum(){
     return this.selectedAlbum;
+  }
+
+  //Manuelles unsubscribe der Subscription
+  ngOnDestroy() {
+    this.searchSubscription.unsubscribe();
+    this.albumSubscription.unsubscribe();
   }
 }

@@ -8,11 +8,15 @@ import {Artist} from "../model/artist.model";
 })
 export class ArtistsService implements OnDestroy{
 
+  //Array mit allen Künstlern die gefunden worden
   artists: Artist[] = [];
   newArtists = new Subject<Artist[]>()
+
+
   subscription!: Subscription;
 
   constructor(private searchService: SearchService) {
+    //Subscription für die gefundenen Künstler im Searchservice
     this.subscription = this.searchService.artists.subscribe((artists:any) => {
       this.artists = [];
       for(let i = 0; i < artists.length; i++){
@@ -28,6 +32,8 @@ export class ArtistsService implements OnDestroy{
     })
   }
 
+
+  //Manuelles unsubscribe
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

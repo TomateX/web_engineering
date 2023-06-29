@@ -16,8 +16,4 @@ export class Playlist {
     this.owner = owner;
     this.tracks = [];
   }
-
-  setTracks(newTracks: Track[]){
-    this.tracks = newTracks;
-  }
 }

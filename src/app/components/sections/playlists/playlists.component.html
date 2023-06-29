@@ -1,18 +1,11 @@
-<div *ngIf="!loading">
-  <div class="d-sm-flex">
-    <img alt="Bild von der Playlist" class="img-playlist" src="{{(type == 'playlist') ? playlist.img : album.img}}">
-    <div class="px-sm-4">
-      <br>
-      <h4 class="text-playlist">{{(type == 'playlist') ? playlist.name : album.name}}</h4>
-      <br>
-      <h6 class="text-playlist">{{(type == 'playlist') ? 'Owner: ' + playlist.owner : 'Artist: ' + album.artists}}</h6>
-    </div>
-  </div>
-  <hr style="color: white">
-  <app-search-card-box></app-search-card-box>
-</div>
-<div *ngIf="loading" class="text-center pt-3">
-  <div class="spinner-border text-success" role="status">
-    <span class="sr-only"></span>
+<div class="d-sm-flex">
+  <img alt="Bild von der Playlist" class="img-playlist" src="{{(type == 'playlist') ? playlist.img : album.img}}">
+  <div class="px-sm-4">
+    <br>
+    <h4 class="text-playlist">{{(type == 'playlist') ? playlist.name : album.name}}</h4>
+    <br>
+    <h6 class="text-playlist">{{(type == 'playlist') ? 'Owner: ' + playlist.owner : 'Artist: ' + album.artists}}</h6>
   </div>
 </div>
+<hr style="color: white">
+<app-search-card-box></app-search-card-box>

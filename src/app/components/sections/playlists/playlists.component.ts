@@ -16,16 +16,7 @@ export class PlaylistsComponent implements OnInit{
   album: Album = new Album('', '', '', '', []);
   type: string|null = '';
 
-  loading: boolean = false;
-
-
   constructor(private playlistsService: PlaylistsService, private albumService: AlbumsService, private router: Router) {
-    this.playlistsService.waitForRequest.subscribe((waiting) => {
-      this.loading = waiting;
-    })
-    this.albumService.waitForRequest.subscribe((waiting) => {
-      this.loading = waiting;
-    })
   }
 
   ngOnInit() {

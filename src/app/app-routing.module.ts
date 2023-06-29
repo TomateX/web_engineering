@@ -5,6 +5,7 @@ import {EmptyComponent} from "./components/empty/empty.component";
 import {SearchCardBoxComponent} from "./components/sections/search-card-box/search-card-box.component";
 
 const routes: Routes = [
+  //Routing
   {path:'album/:name', component:PlaylistsComponent},
   {path:'playlist/:name', component: PlaylistsComponent},
   {path:'search/:type/:name', component: SearchCardBoxComponent},

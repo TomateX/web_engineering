@@ -8,11 +8,15 @@ import {Subject, Subscription} from "rxjs";
 })
 export class TracksService implements OnDestroy{
 
+  //Array mit allen Tracks die gefunden worden sind
   tracks: Track[] = [];
   newTracks = new Subject<Track[]>()
+
+  //Subscription
   subscription!: Subscription;
 
   constructor(private searchService: SearchService) {
+    //Subscription für die gefundenen Tracks vom Searchservice
     this.subscription = this.searchService.tracks.subscribe((tracks:any) => {
       this.tracks = [];
       for(let i = 0; i < tracks.length; i++){
@@ -30,6 +34,8 @@ export class TracksService implements OnDestroy{
     })
   }
 
+
+  //Manuelles unsubscribe
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
